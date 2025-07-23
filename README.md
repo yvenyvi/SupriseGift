@@ -3,8 +3,6 @@
 ## Overview
 This project is a digital anniversary gift in the form of an interactive book website. Created to celebrate a 3rd anniversary, the website features a page-flipping book design with various sections highlighting special memories and milestones of the relationship.
 
-![Anniversary Website](assets/images/firstPic.jpg)
-
 ## Features
 - **Interactive Book Interface**: Realistic page-turning animations with shadow effects
 - **Memory Timeline**: Chronological display of important relationship milestones
