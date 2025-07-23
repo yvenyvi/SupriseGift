@@ -1,0 +1,1074 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@400;700&family=Roboto:wght@400;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap");
+
+body {
+  font-family: "Playfair Display", serif;
+  background-color: #f9f3f3;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  height: 100vh;
+  overflow: hidden;
+  perspective: 1500px;
+}
+
+.book {
+  position: relative;
+  width: 80%;
+  height: 80%;
+  max-width: 800px;
+  margin: 5% auto;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1), 
+              z-index 0.5s ease,
+              box-shadow 1s ease;
+  backface-visibility: hidden;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.page-content {
+  padding: 20px;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.page.active {
+  z-index: 2;
+  animation: page-turn-shadow 1s ease forwards;
+}
+
+.page.flipped {
+  transform: rotateY(-180deg);
+  z-index: 0;
+}
+
+.book-nav-buttons {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 150;
+}
+
+.book-nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(224, 95, 127, 0.8);
+  color: white;
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  pointer-events: auto;
+}
+
+.prev-button {
+  left: -30px;
+}
+
+.next-button {
+  right: -30px;
+}
+
+.book-nav-button:hover {
+  background-color: rgba(192, 77, 107, 0.9);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.book-nav-button:active {
+  transform: translateY(-50%) scale(0.95);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.book-nav-button:disabled {
+  background-color: rgba(204, 204, 204, 0.7);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .book-nav-button {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2em;
+  }
+
+  .prev-button {
+    left: -15px;
+  }
+
+  .next-button {
+    right: -15px;
+  }
+
+  .book {
+    width: 90%;
+    height: 90%;
+    margin: 5% auto;
+  }
+
+  .page {
+    padding: 15px;
+  }
+
+  .header h1 {
+    font-size: 2.5em;
+  }
+
+  h2 {
+    font-size: 2em;
+  }
+
+  .digital-clock {
+    width: 240px;
+    font-size: 2.2em;
+    padding: 15px;
+  }
+
+  .days-count {
+    font-size: 2.8em;
+  }
+
+  .photo-gallery {
+    gap: 10px;
+  }
+
+  .photo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .surprise-button {
+    padding: 12px 24px;
+    font-size: 1em;
+  }
+
+  .modal-message {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 480px) {
+  .book {
+    width: 95%;
+    height: 95%;
+    margin: 2.5% auto;
+  }
+
+  .page {
+    padding: 10px;
+  }
+
+  .header h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.8em;
+  }
+
+  .digital-clock {
+    width: 200px;
+    font-size: 1.8em;
+    padding: 10px 15px;
+  }
+
+  .days-count {
+    font-size: 2.2em;
+  }
+
+  .photo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .cover h1 {
+    font-size: 3em;
+  }
+  
+  .toc-container {
+    max-width: 95%;
+  }
+}
+
+.page-number {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 0.8em;
+  color: #777;
+}
+
+.header h1 {
+  font-family: "Dancing Script", cursive;
+  font-size: 3.2em;
+  color: #e05f7f;
+}
+
+h2 {
+  font-family: "Dancing Script", cursive;
+  font-size: 2.5em;
+  color: #e05f7f;
+}
+
+h3 {
+  font-family: "Dancing Script", cursive;
+  font-size: 1.8em;
+}
+
+.heart {
+  color: #e05f7f;
+  font-size: 1.5em;
+}
+
+.content {
+  line-height: 1.6;
+}
+
+.photo-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.photo {
+  width: 150px;
+  height: 150px;
+  background-color: #e9d6d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo img.rotate-270 {
+  transform: rotate(-90deg);
+}
+
+.photo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.timeline {
+  text-align: left;
+}
+
+.timeline-item {
+  margin-bottom: 20px;
+  padding-left: 20px;
+  border-left: 3px solid #e05f7f;
+}
+
+.memory-image {
+  margin: 20px auto;
+  max-width: 90%;
+  text-align: center;
+}
+
+.memory-image img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(224, 95, 127, 0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.memory-image img:hover {
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 0 8px 20px rgba(224, 95, 127, 0.5);
+}
+
+.image-caption {
+  font-family: "Dancing Script", cursive;
+  font-size: 1.1em;
+  color: #e05f7f;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+/* Table of Contents Styling */
+.toc-container {
+  margin: 20px auto;
+  max-width: 80%;
+  text-align: left;
+}
+
+.toc-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.toc-list li {
+  margin: 15px 0;
+  padding: 10px;
+  border-bottom: 1px dotted #e05f7f;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.toc-list li::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #e05f7f;
+  transition: width 0.3s ease;
+}
+
+.toc-list li:hover {
+  background-color: rgba(224, 95, 127, 0.1);
+  transform: translateX(10px);
+  padding-left: 15px;
+}
+
+.toc-list li:hover::after {
+  width: 100%;
+}
+
+.toc-page {
+  font-family: "Dancing Script", cursive;
+  color: #e05f7f;
+  font-weight: bold;
+  font-size: 1.3em;
+  margin-right: 15px;
+}
+
+.toc-title {
+  font-family: "Playfair Display", serif;
+  font-size: 1.1em;
+  flex-grow: 1;
+}
+
+.footer {
+  font-style: italic;
+  margin-top: auto;
+}
+
+.surprise-button {
+  background-color: #e05f7f;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-family: "Dancing Script", cursive;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  margin: 30px auto;
+  display: block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.surprise-button:hover {
+  background-color: #c04d6b;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.surprise-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Book cover design */
+.cover {
+  background-color: #e05f7f;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cover h1 {
+  font-family: "Dancing Script", cursive;
+  font-size: 4em;
+  margin-bottom: 20px;
+}
+
+.cover-heart {
+  font-size: 5em;
+  margin: 20px 0;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.surprise-modal {
+  background: linear-gradient(135deg, #fff, #ffeef2);
+  width: 80%;
+  max-width: 500px;
+  padding: 0;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transform: scale(0.5);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+  position: relative;
+}
+
+.modal-overlay.active .surprise-modal {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.modal-header {
+  background-color: #e05f7f;
+  padding: 20px;
+  text-align: center;
+  color: white;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: white;
+}
+
+.modal-body {
+  padding: 30px;
+  text-align: center;
+}
+
+.modal-message {
+  font-family: "Playfair Display", serif;
+  font-size: 1.5em;
+  font-weight: 400;
+  margin: 20px 0 30px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.modal-message .highlight {
+  font-family: "Dancing Script", cursive;
+  font-size: 1.3em;
+  color: #e05f7f;
+  display: block;
+  margin: 15px 0;
+}
+
+.modal-close {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #e05f7f;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: "Dancing Script", cursive;
+  font-size: 1.2em;
+  font-weight: bold;
+  transition: all 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.modal-close:hover {
+  background-color: #c04d6b;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal-close:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.flying-hearts {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.heart-particle {
+  position: absolute;
+  color: #e05f7f;
+  opacity: 0;
+  animation: float-up 4s ease-in forwards;
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateY(0) scale(0.5) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1.5) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Digital Clock and Day Counter Styling */
+.clock-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 30px auto;
+}
+
+.digital-clock {
+  background: #000;
+  border: 8px solid #e05f7f;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(224, 95, 127, 0.3);
+  color: #e05f7f;
+  font-family: "Courier New", monospace;
+  font-size: 3.2em;
+  font-weight: bold;
+  margin-bottom: 30px;
+  padding: 20px 30px;
+  position: relative;
+  text-align: center;
+  width: 300px;
+}
+
+.digital-clock .time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.digital-clock .colon {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.day-counter {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.days-count {
+  font-family: "Dancing Script", cursive;
+  font-size: 3.5em;
+  color: #e05f7f;
+  margin: 10px 0;
+}
+
+.days-label {
+  font-family: "Playfair Display", serif;
+  font-size: 1.2em;
+  color: #555;
+}
+
+.love-quote {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  margin-top: 30px;
+  color: #555;
+  font-size: 1.1em;
+}
+
+/* Preloader Styles */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f9f3f3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.preloader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.heart-loader {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  transform: rotate(45deg);
+  transform-origin: 40px 40px;
+}
+
+.heart-loader .heart {
+  top: 32px;
+  left: 32px;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: #e05f7f;
+  animation: heart-beat 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.heart-loader .heart:after,
+.heart-loader .heart:before {
+  content: " ";
+  position: absolute;
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: #e05f7f;
+}
+
+.heart-loader .heart:before {
+  left: -24px;
+  border-radius: 50% 0 0 50%;
+}
+
+.heart-loader .heart:after {
+  top: -24px;
+  border-radius: 50% 50% 0 0;
+}
+
+@keyframes heart-beat {
+  0% {
+    transform: scale(0.95);
+  }
+  5% {
+    transform: scale(1.1);
+  }
+  39% {
+    transform: scale(0.85);
+  }
+  45% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(0.9);
+  }
+}
+
+.loading-text {
+  margin-top: 20px;
+  font-family: "Dancing Script", cursive;
+  font-size: 1.5em;
+  color: #e05f7f;
+}
+
+/* Enhanced Mobile Responsiveness */
+@media (max-width: 768px) {
+  .book-nav-button {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2em;
+  }
+
+  .prev-button {
+    left: -15px;
+  }
+
+  .next-button {
+    right: -15px;
+  }
+
+  .book {
+    width: 90%;
+    height: 90%;
+    margin: 5% auto;
+  }
+
+  .page {
+    padding: 15px;
+  }
+
+  .header h1 {
+    font-size: 2.5em;
+  }
+
+  h2 {
+    font-size: 2em;
+  }
+
+  .digital-clock {
+    width: 240px;
+    font-size: 2.2em;
+    padding: 15px;
+  }
+
+  .days-count {
+    font-size: 2.8em;
+  }
+
+  .photo-gallery {
+    gap: 10px;
+  }
+
+  .photo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .surprise-button {
+    padding: 12px 24px;
+    font-size: 1em;
+  }
+
+  .modal-message {
+    font-size: 1.2em;
+  }
+
+  .slideshow-title {
+    font-size: 2em;
+    margin: 5px auto;
+  }
+  
+  .slide-caption {
+    font-size: 1.2em;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .book {
+    width: 95%;
+    height: 95%;
+    margin: 2.5% auto;
+  }
+
+  .page {
+    padding: 10px;
+  }
+
+  .header h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.8em;
+  }
+
+  .digital-clock {
+    width: 200px;
+    font-size: 1.8em;
+    padding: 10px 15px;
+  }
+
+  .days-count {
+    font-size: 2.2em;
+  }
+
+  .photo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .cover h1 {
+    font-size: 3em;
+  }
+  
+  .toc-container {
+    max-width: 95%;
+  }
+}
+
+/* Enhanced Hover Effects and Animations */
+
+/* Photo Slideshow Styles */
+.slideshow-container {
+  position: relative;
+  max-width: 100%;
+  margin: 20px auto;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.slideshow-container.fullscreen {
+  margin: 0;
+  border-radius: 0;
+  height: 90%;
+  width: 100%;
+}
+
+.fullscreen-slideshow-content {
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.slideshow-title {
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  z-index: 20;
+  color: #e05f7f;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5em;
+  padding: 10px 20px;
+  margin: 15px auto;
+  display: inline-block;
+}
+
+.slideshow {
+  display: flex;
+  width: 100%;
+  height: 300px;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slideshow-container.fullscreen .slideshow {
+  height: 100%;
+}
+
+.slide {
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.8s ease;
+}
+
+.slide img:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.slideshow-container.fullscreen .slide::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, 
+    rgba(0,0,0,0.3) 0%, 
+    rgba(0,0,0,0) 20%, 
+    rgba(0,0,0,0) 80%, 
+    rgba(0,0,0,0.3) 100%);
+  pointer-events: none;
+}
+
+.slide-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5em;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+  z-index: 5;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.slide:hover .slide-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slideshow-nav {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.slideshow-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.slideshow-dot.active {
+  background-color: #e05f7f;
+  transform: scale(1.2);
+}
+
+.slideshow-prev,
+.slideshow-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.slideshow-container.fullscreen .slideshow-prev,
+.slideshow-container.fullscreen .slideshow-next {
+  width: 50px;
+  height: 50px;
+  font-size: 1.5em;
+  background-color: rgba(224, 95, 127, 0.6);
+}
+
+.slideshow-prev {
+  left: 10px;
+}
+
+.slideshow-next {
+  right: 10px;
+}
+
+.slideshow-container.fullscreen .slideshow-prev {
+  left: 20px;
+}
+
+.slideshow-container.fullscreen .slideshow-next {
+  right: 20px;
+}
+
+.slideshow-prev:hover,
+.slideshow-next:hover {
+  background-color: rgba(224, 95, 127, 0.8);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Personalization panel has been removed */
+
+/* Enhanced Page Turn Animation */
+@keyframes page-turn-shadow {
+  0% {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.page:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 30px;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0,0,0,0.05), transparent);
+  z-index: -1;
+  opacity: 0.5;
+  border-radius: 5px 0 0 5px;
+}
+
+/* Add a subtle page edge effect */
+.page:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, 
+                rgba(255,255,255,0.5) 0%, 
+                rgba(255,255,255,0) 5%);
+  pointer-events: none;
+  z-index: 10;
+  border-radius: 5px;
+}
