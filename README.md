@@ -41,7 +41,7 @@ The website utilizes various media files stored in the `assets/images/` director
 
 ## File Structure
 ```
-simpleGift.html    - Main HTML file
+index.html    - Main HTML file
 assets/
     images/        - Contains all images and media files
 css/
@@ -51,7 +51,7 @@ js/
 ```
 
 ## Usage
-1. Simply open the `simpleGift.html` file in any modern web browser
+1. Simply open the `index.html` file in any modern web browser
 2. Navigate through the pages using the arrow buttons on the sides
 3. Interact with elements like the slideshow, video player, and surprise button
 
@@ -66,7 +66,7 @@ The website works best in modern browsers like:
 The website can be easily customized by:
 - Adding new photos to the `assets/images/` folder
 - Updating the image paths in `script.js`
-- Modifying text content in `simpleGift.html`
+- Modifying text content in `index.html`
 - Adjusting colors and styles in `styles.css`
 
 ## Created With Love ❤️

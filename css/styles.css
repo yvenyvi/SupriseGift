@@ -592,28 +592,97 @@ h3 {
   box-shadow: 0 0 20px rgba(224, 95, 127, 0.3);
   color: #e05f7f;
   font-family: "Courier New", monospace;
-  font-size: 3.2em;
+  font-size: 2.6em;
   font-weight: bold;
   margin-bottom: 30px;
-  padding: 20px 30px;
+  padding: 20px 25px;
   position: relative;
   text-align: center;
-  width: 300px;
+  width: 320px;
+}
+
+.elapsed-label {
+  font-family: "Dancing Script", cursive;
+  font-size: 0.45em;
+  color: #e05f7f;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 .digital-clock .time {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-shadow: 0 0 10px rgba(224, 95, 127, 0.5);
+  flex-wrap: wrap;
+  letter-spacing: 1px;
+}
+
+.digital-clock .colon {
+  display: inline-block;
+  animation: blink 1.5s infinite;
+  padding: 0 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@media (max-width: 480px) {
+  .digital-clock .time {
+    letter-spacing: 0;
+    font-size: 0.9em;
+  }
+  
+  .digital-clock .colon {
+    padding: 0 1px;
+  }
+}
+
+.digital-clock .clock-label {
+  font-size: .5em;
+  margin-top: 10px;
+  color: rgba(224, 95, 127, 0.8);
+  font-family: "Playfair Display", serif;
+}
+
+.hour-changed {
+  animation: highlight 1s ease;
+}
+
+@keyframes highlight {
+  0% { 
+    color: white; 
+    text-shadow: 0 0 15px white; 
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  100% { 
+    color: #e05f7f; 
+    text-shadow: 0 0 10px rgba(224, 95, 127, 0.5);
+    letter-spacing: normal;
+    text-transform: none;
+  }
 }
 
 .digital-clock .colon {
   animation: blink 1s infinite;
 }
 
+.hour-changed {
+  animation: pulse 1s ease-in-out;
+}
+
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); color: #ff8da8; }
+  100% { transform: scale(1); }
 }
 
 .day-counter {
@@ -765,9 +834,17 @@ h3 {
   }
 
   .digital-clock {
-    width: 240px;
-    font-size: 2.2em;
-    padding: 15px;
+    width: 280px;
+    font-size: 2em;
+    padding: 15px 10px;
+  }
+  
+  .elapsed-label {
+    font-size: 0.42em;
+  }
+  
+  .digital-clock .clock-label {
+    font-size: 0.32em;
   }
 
   .days-count {
@@ -1071,4 +1148,27 @@ h3 {
   pointer-events: none;
   z-index: 10;
   border-radius: 5px;
+}
+
+/* Additional clock formatting for smallest screens */
+@media (max-width: 400px) {
+  .digital-clock {
+    width: 220px !important;
+    font-size: 1.4em !important;
+    padding: 8px !important;
+  }
+  
+  .elapsed-label {
+    font-size: 0.38em !important;
+    margin-bottom: 4px !important;
+  }
+  
+  .digital-clock .clock-label {
+    font-size: 0.26em !important;
+    margin-top: 4px !important;
+  }
+  
+  .digital-clock .time {
+    letter-spacing: 0 !important;
+  }
 }

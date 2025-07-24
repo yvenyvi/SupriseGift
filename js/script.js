@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
   
-  // Digital Clock function
+  // Digital Clock function - Showing elapsed time since July 27, 2022 in HH:MM:SS format
   function initClock() {
     const clockElement = document.querySelector(".digital-clock .time");
     if (clockElement) {
@@ -105,17 +105,41 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     
     function updateClock() {
+      const startDate = new Date("2022-07-27T00:00:00"); // July 27, 2022 at midnight
       const now = new Date();
-      let hours = now.getHours();
-      let minutes = now.getMinutes();
-      let seconds = now.getSeconds();
       
-      // Format the time with leading zeros
-      hours = hours.toString().padStart(2, "0");
-      minutes = minutes.toString().padStart(2, "0");
-      seconds = seconds.toString().padStart(2, "0");
+      // Calculate the difference in milliseconds
+      const diffTime = Math.abs(now - startDate);
       
-      clockElement.innerHTML = `${hours}<span class="colon">:</span>${minutes}<span class="colon">:</span>${seconds}`;
+      // Calculate hours, minutes, and seconds
+      const totalSeconds = Math.floor(diffTime / 1000);
+      const totalMinutes = Math.floor(totalSeconds / 60);
+      const totalHours = Math.floor(totalMinutes / 60);
+      
+      // Calculate remaining minutes and seconds
+      const remainingMinutes = totalMinutes % 60;
+      const remainingSeconds = totalSeconds % 60;
+      
+      // Format with leading zeros for minutes and seconds
+      const formattedHours = totalHours.toLocaleString(); // With thousands separator
+      const formattedMinutes = String(remainingMinutes).padStart(2, '0');
+      const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+      
+      // Create the time string
+      const timeString = `${formattedHours}<span class="colon">:</span>${formattedMinutes}<span class="colon">:</span>${formattedSeconds}`;
+      
+      // Apply a subtle highlight effect when the display changes
+      if (clockElement.innerHTML !== timeString) {
+        // Highlight only on hour changes
+        if (!clockElement.innerHTML.includes(formattedHours)) {
+          clockElement.classList.add('hour-changed');
+          setTimeout(() => {
+            clockElement.classList.remove('hour-changed');
+          }, 1000);
+        }
+      }
+      
+      clockElement.innerHTML = timeString;
     }
   }
   
